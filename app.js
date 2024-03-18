@@ -11,16 +11,32 @@ for (const key in book) {
         continue;
     }
 
-    switch (typeof book[key]) {
-        case "boolean":
-            newValue = newValue === 'true';
-            break;
-        case 'number':
-            newValue = parseInt(newValue);
-            break;
-    }
-
-    book[key] = newValue;
+    book[key] = castValue(newValue, typeof book[key]);
 }
 
 console.log(book);
+
+function castValue(value, type) {
+    switch (type) {
+        case "boolean":
+            return castBool(value);
+        case 'number':
+            return castNumber(value);
+        case "array":
+            return castArray(value);
+        default:
+            return value;
+    }
+}
+
+function castBool(value) {
+    return value === 'true';
+}
+
+function castNumber(value) {
+    return parseInt(value);
+}
+
+function castArray(value) {
+    return value.split(',');
+}
