@@ -10,14 +10,26 @@ do {
     rates.push(parseInt(lastValue));
 } while (lastValue !== '');
 
-let sum = 0;
-for (const rate of rates) {
-    console.log(rate);
-    sum += rate;
-}
+// let sum = rates.reduce(function (accumulator, value) {
+//     return accumulator + value;
+// });
+
+// let sum = rates.reduce((accumulator, value) => {
+//     return accumulator + value;
+// });
+
+let sum = rates.reduce((accumulator, value) => accumulator + value);
+
+// let sum = 0;
+// rates.forEach(function(value) {
+//    sum += value;
+// });
+
+// let sum = 0;
+// rates.forEach(value => {
+//    sum += value;
+// });
+
 
 console.log(sum / rates.length);
-
-
-"Afficher l'ensemble des notes saisies et la moyenne de ces notes"
 
