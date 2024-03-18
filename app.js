@@ -1,42 +1,26 @@
-const book = {
-    title: 'Mon titre',
-    releaseYear: 2002,
-    isFrench: true,
-};
+const box = document.getElementById("box");
 
-for (const key in book) {
-    let newValue = prompt("Votre valeur pour " + key);
+setInterval(() => {
+    randomizeBackground(box);
+    randomizePosition(box);
+}, 1000);
 
-    if (newValue === '') {
-        continue;
-    }
+function randomizeBackground(element) {
+    // const colors = ['red', 'blue', 'green'];
+    // const randomKey = Math.random() * (colors.length - 1);
+    // element.style.backgroundColor = colors[randomKey];
 
-    book[key] = castValue(newValue, typeof book[key]);
+    const r = generateColor(), g = generateColor(), b = generateColor();
+    element.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 
-console.log(book);
-
-function castValue(value, type) {
-    switch (type) {
-        case "boolean":
-            return castBool(value);
-        case 'number':
-            return castNumber(value);
-        case "array":
-            return castArray(value);
-        default:
-            return value;
-    }
+function randomizePosition(element) {
+    const top = Math.random() * (window.innerHeight - element.offsetHeight);
+    const left = Math.random() * (window.innerWidth - element.offsetWidth);
+    element.style.top = top + 'px';
+    element.style.left = left + 'px';
 }
 
-function castBool(value) {
-    return value === 'true';
-}
-
-function castNumber(value) {
-    return parseInt(value);
-}
-
-function castArray(value) {
-    return value.split(',');
+function generateColor() {
+    return Math.random() * 255;
 }

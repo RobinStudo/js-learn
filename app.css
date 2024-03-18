@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+.container {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: darkblue;
+    color: white;
+    transition: all 1s;
+}
