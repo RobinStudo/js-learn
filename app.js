@@ -1,35 +1,26 @@
-const rates = [];
-let lastValue;
+const book = {
+    title: 'Mon titre',
+    releaseYear: 2002,
+    isFrench: true,
+};
 
-do {
-    lastValue = prompt("Note");
-    if (isNaN(parseInt(lastValue))) {
+for (const key in book) {
+    let newValue = prompt("Votre valeur pour " + key);
+
+    if (newValue === '') {
         continue;
     }
 
-    rates.push(parseInt(lastValue));
-} while (lastValue !== '');
+    switch (typeof book[key]) {
+        case "boolean":
+            newValue = newValue === 'true';
+            break;
+        case 'number':
+            newValue = parseInt(newValue);
+            break;
+    }
 
-// let sum = rates.reduce(function (accumulator, value) {
-//     return accumulator + value;
-// });
+    book[key] = newValue;
+}
 
-// let sum = rates.reduce((accumulator, value) => {
-//     return accumulator + value;
-// });
-
-let sum = rates.reduce((accumulator, value) => accumulator + value);
-
-// let sum = 0;
-// rates.forEach(function(value) {
-//    sum += value;
-// });
-
-// let sum = 0;
-// rates.forEach(value => {
-//    sum += value;
-// });
-
-
-console.log(sum / rates.length);
-
+console.log(book);
