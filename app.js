@@ -1,28 +1,23 @@
-const a = parseInt(prompt("Premier nombre"));
-const b = parseInt(prompt("Deuxième nombre"));
-const operator = prompt("Quelle opération");
+const rates = [];
+let lastValue;
 
-if (isNaN(a) || isNaN(b)) {
-    alert("Mauvaise saisie");
-} else {
-    let result;
-    switch (operator) {
-        case "+":
-            result = a + b;
-            break;
-        case "-":
-            result = a - b;
-            break;
-        case "/":
-            result = a / b;
-            break;
-        case "*":
-            result = a * b;
-            break;
-        default:
-            alert("Erreur");
+do {
+    lastValue = prompt("Note");
+    if (isNaN(parseInt(lastValue))) {
+        continue;
     }
 
-    console.log(result);
+    rates.push(parseInt(lastValue));
+} while (lastValue !== '');
+
+let sum = 0;
+for (const rate of rates) {
+    console.log(rate);
+    sum += rate;
 }
+
+console.log(sum / rates.length);
+
+
+"Afficher l'ensemble des notes saisies et la moyenne de ces notes"
 
