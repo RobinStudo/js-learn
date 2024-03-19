@@ -1,15 +1,22 @@
 const box = document.getElementById("box");
+let interval = setupAnimation();
 
-setInterval(() => {
-    randomizeBackground(box);
-    randomizePosition(box);
-}, 1000);
+box.addEventListener("mouseenter", () => {
+    clearInterval(interval);
+});
+
+box.addEventListener("mouseleave", () => {
+    interval = setupAnimation();
+});
+
+function setupAnimation() {
+    return setInterval(() => {
+        randomizeBackground(box);
+        randomizePosition(box);
+    }, 1000);
+}
 
 function randomizeBackground(element) {
-    // const colors = ['red', 'blue', 'green'];
-    // const randomKey = Math.random() * (colors.length - 1);
-    // element.style.backgroundColor = colors[randomKey];
-
     const r = generateColor(), g = generateColor(), b = generateColor();
     element.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
