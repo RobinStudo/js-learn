@@ -1,19 +1,39 @@
 const box = document.getElementById("box");
-let interval = setupAnimation();
+const boxes = [box];
+setupAnimation();
+setupEvent(box);
 
-box.addEventListener("mouseenter", () => {
-    clearInterval(interval);
-});
-
-box.addEventListener("mouseleave", () => {
-    interval = setupAnimation();
+document.addEventListener('click', e => {
+    const el = document.createElement('div');
+    el.classList.add('container');
+    el.style.top = (e.clientY - box.offsetHeight / 2) + 'px';
+    el.style.left = (e.clientX - box.offsetWidth / 2) + 'px';
+    document.body.appendChild(el);
+    setupEvent(el);
+    boxes.push(el);
 });
 
 function setupAnimation() {
     return setInterval(() => {
-        randomizeBackground(box);
-        randomizePosition(box);
+        for (const b of boxes) {
+            if (b.classList.contains('paused')) {
+                continue;
+            }
+
+            randomizeBackground(b);
+            randomizePosition(b);
+        }
     }, 1000);
+}
+
+function setupEvent(el) {
+    el.addEventListener("mouseenter", () => {
+        el.classList.add('paused');
+    });
+
+    el.addEventListener("mouseleave", () => {
+        el.classList.remove('paused');
+    });
 }
 
 function randomizeBackground(element) {
@@ -31,3 +51,4 @@ function randomizePosition(element) {
 function generateColor() {
     return Math.random() * 255;
 }
+
