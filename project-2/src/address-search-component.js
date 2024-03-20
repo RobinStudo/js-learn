@@ -11,6 +11,7 @@ export class AddressSearchComponent {
         this.elements = {
             container: container,
             searchInput: container.querySelector("input[type='search']"),
+            geolocationInput: container.querySelector("input[name='enable-geolocation']"),
             results: container.querySelector("ul"),
         };
     }
@@ -32,7 +33,7 @@ export class AddressSearchComponent {
     }
 
      run(query) {
-        this.addressProvider.search(query)
+        this.addressProvider.search(query, this.elements.geolocationInput.checked)
             .then(data => {
                 this.elements.results.innerHTML = '';
                 for (const result of data.features) {

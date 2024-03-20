@@ -1,11 +1,19 @@
+import { locationProvider } from "./location-provider.js";
+
 class AddressProvider {
     constructor() {
         this.url = "https://api-adresse.data.gouv.fr";
     }
 
-    async search(query) {
+    async search(query, withGeolocation) {
         const url = this.prepareUrl('/search');
         url.searchParams.set("q", query);
+
+        if (withGeolocation) {
+            const position = await locationProvider.getPosition();
+            url.searchParams.set("lat", position.lat);
+            url.searchParams.set("lon", position.lng);
+        }
 
         try {
             const response = await fetch(url);
@@ -13,15 +21,6 @@ class AddressProvider {
         } catch (e) {
             throw e;
         }
-
-        // return fetch(url)
-        //     .then(response => {
-        //         return response.json();
-        //     })
-        //     .catch(e => {
-        //         throw e;
-        //     })
-        // ;
     }
 
     prepareUrl(endpoint) {
