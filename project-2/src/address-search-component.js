@@ -31,7 +31,7 @@ export class AddressSearchComponent {
         });
     }
 
-    run(query) {
+     run(query) {
         this.addressProvider.search(query)
             .then(data => {
                 this.elements.results.innerHTML = '';

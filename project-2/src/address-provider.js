@@ -3,18 +3,25 @@ class AddressProvider {
         this.url = "https://api-adresse.data.gouv.fr";
     }
 
-    search(query) {
+    async search(query) {
         const url = this.prepareUrl('/search');
-        url.searchParams.set("qquery", query);
+        url.searchParams.set("q", query);
 
-        return fetch(url)
-            .then(response => {
-                return response.json();
-            })
-            .catch(e => {
-                console.log(e);
-            })
-        ;
+        try {
+            const response = await fetch(url);
+            return await response.json();
+        } catch (e) {
+            throw e;
+        }
+
+        // return fetch(url)
+        //     .then(response => {
+        //         return response.json();
+        //     })
+        //     .catch(e => {
+        //         throw e;
+        //     })
+        // ;
     }
 
     prepareUrl(endpoint) {
