@@ -7,6 +7,16 @@ export class Box {
     }
 
     setupEvent() {
+        this.element.addEventListener('click', e => {
+            e.stopPropagation();
+           this.element.remove();
+
+           const removeEvent = new CustomEvent("removeBox", {
+               detail: this,
+           });
+           document.dispatchEvent(removeEvent);
+       }, { once: true });
+
         this.element.addEventListener("mouseenter", () => {
             this.element.classList.add('paused');
         });

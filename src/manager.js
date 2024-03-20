@@ -17,6 +17,8 @@ export class Manager {
             const y = e.clientY - this.originalBox.element.offsetHeight / 2;
             this.addBox(x, y);
         });
+
+        document.addEventListener("removeBox", e => this.removeBox(e.detail));
     }
 
     animateBoxes() {
@@ -34,5 +36,11 @@ export class Manager {
 
         const box = new Box(el);
         this.boxes.push(box);
+    }
+
+    removeBox(box) {
+        this.boxes = this.boxes.filter(b => {
+           return b !== box;
+        });
     }
 }
