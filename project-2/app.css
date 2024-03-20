@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    background-color: #2d3436;
+    color: white;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.address-search-component {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+input[type="search"] {
+    margin: 10px 0 30px;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    padding: 5px;
+    width: 100%;
+    list-style-type: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+ul li:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.4);
+}
