@@ -42,6 +42,12 @@ header {
     }
 }
 
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 section {
     flex: 1;
     overflow-y: auto;
@@ -114,5 +120,20 @@ form {
     }
 }
 
+dialog {
+    form {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        input {
+            color: var(--color-dark);
+        }
+    }
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}
 
 
