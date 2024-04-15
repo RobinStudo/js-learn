@@ -12,5 +12,8 @@
     "scripts": {
         "watch": "webpack --watch --mode=development",
         "build": "webpack --mode=production"
+    },
+    "dependencies": {
+        "socket.io-client": "^4.7.5"
     }
 }
