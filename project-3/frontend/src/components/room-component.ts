@@ -1,3 +1,4 @@
+import { Message } from "../interfaces/message";
 import { userProvider } from "../services/user-provider";
 
 export class RoomComponent {
@@ -14,6 +15,7 @@ export class RoomComponent {
             container: container,
             form: container.querySelector('form'),
             feed: container.querySelector('section'),
+            messageTemplate: document.getElementById('template-message') as HTMLTemplateElement,
         }
     }
 
@@ -33,6 +35,19 @@ export class RoomComponent {
         };
 
         // TODO - Add message in feed & send to backend
+        this.displayMessage(message);
+    }
+
+    private displayMessage(message: Message, external = false) {
+        const fragment = document.importNode(this.elements.messageTemplate.content, true);
+        const element = fragment.querySelector('article');
+
+        element.classList.add(external ? 'ext' : 'me');
+        element.querySelector('.user').textContent = message.user.username;
+        element.querySelector('.message').textContent = message.content;
+        element.querySelector('.date').textContent = message.date.toLocaleString('fr-FR');
+
+        this.elements.feed.appendChild(element);
     }
 }
 
@@ -40,4 +55,5 @@ interface RoomComponentElements {
     container: HTMLElement;
     feed: HTMLElement;
     form: HTMLFormElement;
+    messageTemplate: HTMLTemplateElement;
 }
