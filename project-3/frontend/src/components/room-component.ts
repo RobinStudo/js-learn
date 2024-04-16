@@ -1,8 +1,10 @@
 import { Message } from "../interfaces/message";
+import { apiService } from "../services/api-service";
 import { socketService } from "../services/socket-service";
 import { userProvider } from "../services/user-provider";
 
 export class RoomComponent {
+    private apiService = apiService;
     private socketService = socketService;
     private userProvider = userProvider;
     private elements: RoomComponentElements;
@@ -10,6 +12,7 @@ export class RoomComponent {
     constructor(container: HTMLElement) {
         this.buildElements(container);
         this.bindEvents();
+        this.loadPreviousMessages();
     }
 
     private buildElements(container: HTMLElement): void {
@@ -30,6 +33,15 @@ export class RoomComponent {
         this.socketService.on("forwardMessage").subscribe((message: Message) => {
             message.date = new Date(message.date);
             this.displayMessage(message, true)
+        });
+    }
+
+    private loadPreviousMessages() {
+        this.apiService.fetch("/messages").then(data => {
+            for (const message of data.messages) {
+                message.date = new Date(message.date);
+                this.displayMessage(message, this.userProvider.getUser().username !== message.user.username);
+            }
         });
     }
 
