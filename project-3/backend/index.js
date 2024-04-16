@@ -6,6 +6,8 @@ const io = new Server(3001, {
     }
 });
 
-io.on("connection", () => {
-    console.log("Connexion");
-})
+io.on("connection", socket => {
+    socket.on("incomingMessage", payload => {
+        socket.broadcast.emit("forwardMessage", payload);
+    });
+});

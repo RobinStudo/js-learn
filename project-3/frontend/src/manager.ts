@@ -3,10 +3,10 @@ import { userProvider } from "./services/user-provider";
 
 export class Manager {
     private userProvider = userProvider;
-    private mainRoomComponent = new RoomComponent(document.getElementById("main-room"));
 
     constructor() {
         this.start();
+        new RoomComponent(document.getElementById("main-room"));
     }
 
     private start(): void {

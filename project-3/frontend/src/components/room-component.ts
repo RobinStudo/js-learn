@@ -1,7 +1,9 @@
 import { Message } from "../interfaces/message";
+import { socketService } from "../services/socket-service";
 import { userProvider } from "../services/user-provider";
 
 export class RoomComponent {
+    private socketService = socketService;
     private userProvider = userProvider;
     private elements: RoomComponentElements;
 
@@ -23,7 +25,12 @@ export class RoomComponent {
         this.elements.form.addEventListener("submit", e => {
             e.preventDefault();
             this.sendMessage();
-        })
+        });
+
+        this.socketService.on("forwardMessage").subscribe((message: Message) => {
+            message.date = new Date(message.date);
+            this.displayMessage(message, true)
+        });
     }
 
     private sendMessage() {
@@ -34,7 +41,7 @@ export class RoomComponent {
             date: new Date(),
         };
 
-        // TODO - Add message in feed & send to backend
+        this.socketService.emit("incomingMessage", message);
         this.displayMessage(message);
     }
 

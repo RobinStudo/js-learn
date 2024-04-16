@@ -14,6 +14,7 @@
         "build": "webpack --mode=production"
     },
     "dependencies": {
+        "rxjs": "^7.8.1",
         "socket.io-client": "^4.7.5"
     }
 }
