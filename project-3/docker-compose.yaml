@@ -1,0 +1,21 @@
+services:
+    mongo:
+        image: mongo
+
+    node:
+        image: node:lts-alpine
+        working_dir: /var/www/app
+        volumes:
+            - ./backend:/var/www/app
+        ports:
+            - "3001:3001"
+        command: "node index.js"
+
+    nginx:
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile
+        volumes:
+            - ./frontend:/var/www/app
+        ports:
+            - "80:80"
