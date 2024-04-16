@@ -43,6 +43,7 @@ export class RoomComponent {
 
         this.socketService.emit("incomingMessage", message);
         this.displayMessage(message);
+        this.elements.form.reset();
     }
 
     private displayMessage(message: Message, external = false) {
