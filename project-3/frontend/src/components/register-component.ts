@@ -1,6 +1,8 @@
 import { User } from "../interfaces/user";
+import { apiService } from "../services/api-service";
 
 export class RegisterComponent {
+    private apiService = apiService;
     private elements: RegisterComponentElements;
     private promiseResovle: (value: (PromiseLike<User> | User)) => void;
 
@@ -30,10 +32,17 @@ export class RegisterComponent {
         });
     }
 
-    private finish() {
-        const data = new FormData(this.elements.form);
+    private async finish() {
+        const payload = new FormData(this.elements.form);
+
+        const data = await this.apiService.fetch('/picture', {
+            method: 'POST',
+            body: payload,
+        });
+
         const user = {
-            username: data.get("username").toString(),
+            username: payload.get("username").toString(),
+            picture: data.picture,
         };
 
         this.elements.container.close();

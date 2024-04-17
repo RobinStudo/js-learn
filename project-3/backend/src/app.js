@@ -4,6 +4,8 @@ import { Server } from "socket.io";
 import cors from "cors";
 import { dbService } from "./services/db-service.js";
 import helmet from "helmet";
+import { UserController } from "./controllers/user-controller.js";
+import { upload } from "./middlewares/upload-middleware.js";
 
 export class App {
     constructor() {
@@ -20,7 +22,10 @@ export class App {
     init() {
         this.app = express();
         this.app.use(cors());
-        this.app.use(helmet());
+        this.app.use(helmet({
+            crossOriginResourcePolicy: false,
+        }));
+        this.app.use('/public', express.static('public'));
 
         this.server = createServer(this.app);
         this.io = new Server(this.server, {
@@ -45,6 +50,8 @@ export class App {
                 messages: await this.messagesCollection.find().toArray(),
             });
         });
+
+        this.app.post("/picture", upload.single('picture'), UserController.upload);
     }
 
     start() {

@@ -9,7 +9,7 @@ services:
             - ./backend:/var/www/app
         ports:
             - "3001:3001"
-        command: "node index.js"
+        command: "npm run start"
 
     nginx:
         build:

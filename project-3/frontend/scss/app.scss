@@ -59,9 +59,22 @@ section {
     article {
         margin: 10px 0;
         display: flex;
-        flex-direction: column;
+        align-items: center;
         gap: 5px;
         align-self: end;
+
+        & > img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
         .message {
             background-color: var(--color-primary);

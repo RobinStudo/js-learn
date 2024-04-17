@@ -63,6 +63,7 @@ export class RoomComponent {
         const element = fragment.querySelector('article');
 
         element.classList.add(external ? 'ext' : 'me');
+        element.querySelector('img').src = message.user.picture;
         element.querySelector('.user').textContent = message.user.username;
         element.querySelector('.message').textContent = message.content;
         element.querySelector('.date').textContent = message.date.toLocaleString('fr-FR');
