@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import { dbService } from "./services/db-service.js";
+import helmet from "helmet";
 
 export class App {
     constructor() {
@@ -19,6 +20,7 @@ export class App {
     init() {
         this.app = express();
         this.app.use(cors());
+        this.app.use(helmet());
 
         this.server = createServer(this.app);
         this.io = new Server(this.server, {
